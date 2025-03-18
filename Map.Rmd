@@ -15,8 +15,10 @@ library(wooldridge); library(ggplot2); library(dplyr); library(stargazer); libra
 ```{r data read, include = FALSE}
 #change directory as needed
 
+#change directory as needed
+
 # URL of the raw ZIP file on GitHub
-zip_url <- "https://github.com/Kealyn8/soybeans/blob/main/va_shp.zip"
+zip_url <- "https://github.com/Kealyn8/soybeans/raw/main/va_shp.zip"
 
 # Download the ZIP file to a temporary location
 temp_file <- tempfile(fileext = ".zip")
@@ -27,18 +29,18 @@ unzip_dir <- tempfile()  # Create a temporary directory to unzip the file
 unzip(temp_file, exdir = unzip_dir)
 
 # List the contents of the unzipped folder (optional)
-unzipped_files <- list.files(unzip_dir)
+unzipped_files <- list.files(unzip_dir, recursive = TRUE)
 print(unzipped_files)
 
-# Path to the shapefile (assuming it's named 'va_count.shp')
-shapefile_path <- file.path(unzip_dir, "va_count.shp")
+# Check if there's a subfolder or if the shapefile is in a folder
+# Assuming the shapefile inside the ZIP is in a folder called 'va_shp' and named 'va_shp.shp'
+shapefile_path <- file.path(unzip_dir, "va_shp", "va_counties.shp")
 
-# Read the shapefile using st_read
-count <- st_read(shapefile_path)
+count <- st_read(shapefile_path) %>% select(NAME, geometry)
 ```
 
 
-```{r Map, echo = FALSE}
+```{r Map, echo = FALSE, out.width='100%', out.height='600px'}
 
 key <- "24C319CF-223E-3DE5-A431-6077153BC7CB"
 
@@ -109,6 +111,10 @@ colnames(capacities) <- c('Plant', 'Cap')
 # Convert locations into a spatial data frame so that it can be plotted
 
 locations <- st_as_sf(locations, coords = c('lng', 'lat'), crs = st_crs(count))
+
+#transforming sf to WGS84
+locations <- st_transform(locations, crs = 4326)
+count$geometry <- st_transform(count$geometry, crs = 4326)
 
 # Defining the color scheme for filling in counties - you can make significant alterations to this if you want
 
