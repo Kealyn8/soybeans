@@ -10,7 +10,7 @@ output:
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(wooldridge); library(ggplot2); library(dplyr); library(stargazer); library(patchwork); library(stringr); library(readxl); library(ggthemes); library(tidyr); library(fpp3); library(scales); library(tidyUSDA); library(sf);library(leaflet); library(htmltools); library(knitr); library(kableExtra)
+library(stringr); library(tidyr); library(fpp3); library(scales); library(tidyUSDA); library(sf);library(leaflet); library(htmltools)
 ```
 
 ```{r data read, include = FALSE}
