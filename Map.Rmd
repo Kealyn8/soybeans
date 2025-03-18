@@ -1,10 +1,11 @@
 ---
-title: "Map Display"
-author: "Kealyn Greenwell"
-date: "2025-03-18"
+title: "Soybean Acres Harvested in Virginia"
+author: "Billy Stoneman and Kealyn Greenwell"
+date: ""
 output:
-  html_document: default
-  pdf_document: default
+  html_document: 
+    theme: united
+    highlight: tango
 ---
 
 ```{r setup, include=FALSE}
