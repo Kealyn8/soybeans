@@ -152,7 +152,7 @@ leaflet(count$geometry) %>% addTiles() %>% # This line tells it what data to use
   
   addProviderTiles('Esri.WorldGrayCanvas') %>% # This renders a plain background outside of your geometry
   
-  addLegend(position = 'topright', pal = pal, values = count$Soybeans, title = 'Soybeans Harvested <br> acres', opacity = 1) %>% # This adds a legend
+  addLegend(position = 'topright', pal = pal, values = count$Soybeans, title = 'Acres Harvested', opacity = 1) %>% # This adds a legend
   
   addLegend(position = 'bottomright',                       #this is the legend for the circle markers
             colors = c("darkgreen", "darkblue", "yellow"), 
