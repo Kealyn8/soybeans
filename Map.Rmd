@@ -15,7 +15,26 @@ library(wooldridge); library(ggplot2); library(dplyr); library(stargazer); libra
 ```{r data read, include = FALSE}
 #change directory as needed
 
-count <- st_read('va_shp') %>% select(NAME, geometry)
+# URL of the raw ZIP file on GitHub
+zip_url <- "https://github.com/Kealyn8/soybeans/blob/main/va_shp.zip"
+
+# Download the ZIP file to a temporary location
+temp_file <- tempfile(fileext = ".zip")
+download.file(zip_url, temp_file)
+
+# Unzip the file to a temporary directory
+unzip_dir <- tempfile()  # Create a temporary directory to unzip the file
+unzip(temp_file, exdir = unzip_dir)
+
+# List the contents of the unzipped folder (optional)
+unzipped_files <- list.files(unzip_dir)
+print(unzipped_files)
+
+# Path to the shapefile (assuming it's named 'va_count.shp')
+shapefile_path <- file.path(unzip_dir, "va_count.shp")
+
+# Read the shapefile using st_read
+count <- st_read(shapefile_path)
 ```
 
 
